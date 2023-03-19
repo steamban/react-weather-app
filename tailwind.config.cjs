@@ -5,9 +5,6 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    fontFamily: {
-      primary: 'Poppins',
-    },
     extend: {
       backgroundImage: {
         Bg: "url('/src/assets/bg2.webp')",

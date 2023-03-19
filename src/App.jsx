@@ -25,9 +25,6 @@ import {
 import { TbTemperatureCelsius } from "react-icons/tb";
 import { ImSpinner8 } from "react-icons/im";
 
-// api key
-const APIkey = "bcf2048bc3be154bded8f277f580ba2e";
-
 const App = () => {
    const [data, setData] = useState(null);
    const [location, setLocation] = useState("Kerala");
@@ -72,7 +69,7 @@ const App = () => {
       // set loading to true
       setLoading(true);
 
-      const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${APIkey}`;
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${import.meta.env.VITE_API_KEY}`;
 
       axios
          .get(url)
@@ -141,16 +138,13 @@ const App = () => {
    const date = new Date();
 
    return (
-      <div className="w-full h-screen bg-Bg bg-no-repeat bg-cover bg-center flex flex-col items-center justify-center px-4 lg:px-0">
+      <div className="w-full h-screen bg-Bg bg-no-repeat bg-cover bg-center flex flex-col items-center justify-center lg:px-0">
          {errorMsg && (
             <div className="w-full max-w-[90vw] lg:max-w-[450px] bg-[#ff208c] text-white absolute top-2 lg:top-10 p-4 capitalize rounded-md">{`${errorMsg.response.data.message}`}</div>
          )}
          {/* form */}
          <form
-            className={`${
-               animate ? "animate-shake" : "animate-none"
-            } h-16 bg-black/30 w-full max-w-[450px]
-      rounded-full backdrop-blur-[32px] mb-8`}
+            className={`${animate ? "animate-shake" : "animate-none"} h-16 bg-black/30 w-full max-w-[450px] rounded-full backdrop-blur-[32px] mb-8`}
          >
             <div className="h-full relative flex items-center justify-between p-2">
                <input
@@ -168,7 +162,7 @@ const App = () => {
             </div>
          </form>
          {/* card */}
-         <div className="w-full max-w-[450px] bg-black/20 min-h-[584px] text-white backdrop-blur-[32px] rounded-[32px] py-12 px-6">
+         <div className="w-full max-w-[450px] bg-black/20 min-h-[540px] text-white backdrop-blur-[32px] rounded-[32px] py-6 px-3">
             {loading ? (
                <div className="w-full h-full flex justify-center items-center">
                   <ImSpinner8 className="text-white text-5xl animate-spin" />
@@ -195,7 +189,7 @@ const App = () => {
                   <div className="my-20">
                      <div className="flex justify-center items-center">
                         {/* temp */}
-                        <div className="text-[144px] leading-none font-light">
+                        <div className="text-[148px] leading-none font-light">
                            {parseInt(data.main.temp)}
                         </div>
                         {/* celsius icon */}
@@ -218,9 +212,7 @@ const App = () => {
                            </div>
                            <div>
                               Visibility{" "}
-                              <span className="ml-2">
-                                 {data.visibility / 1000} km
-                              </span>
+                              <span className="ml-2">{data.visibility / 1000} km</span>
                            </div>
                         </div>
                         <div className="flex items-center gap-x-2">
