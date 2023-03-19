@@ -1,13 +1,16 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./src/**/*.{js,jsx,ts,tsx}'],
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
   theme: {
     fontFamily: {
       primary: 'Poppins',
     },
     extend: {
       backgroundImage: {
-        gradientBg: "url('/src/assets/img/bg.png')",
+        Bg: "url('/src/assets/bg2.webp')",
       },
       keyframes: {
         shake: {
