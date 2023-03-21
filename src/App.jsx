@@ -27,7 +27,7 @@ import { ImSpinner8 } from "react-icons/im";
 
 const App = () => {
    const [data, setData] = useState(null);
-   const [location, setLocation] = useState("");
+   const [location, setLocation] = useState("kochi");
    const [inputValue, setInputValue] = useState("");
    const [animate, setAnimate] = useState(false);
    const [loading, setLoading] = useState(false);
@@ -64,6 +64,11 @@ const App = () => {
       e.preventDefault();
    };
 
+   // (async () => {
+   //    const response = await axios.get('http://ip-api.com/json/')
+   //    console.log(response.data.city);
+   // })
+
    // get user location
    // useEffect(() => {
    //    axios
@@ -80,17 +85,18 @@ const App = () => {
    useEffect(() => {
       // set loading to true
       setLoading(true);
+      // getUserLocation()
 
-      if (location === "") {
-         axios
-            .get("http://ip-api.com/json/")
-            .then((res) => {
-               setLocation(res.data.city);
-            })
-            .catch((err) => {
-               console.log(err);
-            });
-      }
+      // if (location === "") {
+      //    axios
+      //       .get("http://ip-api.com/json/")
+      //       .then((res) => {
+      //          setLocation(res.data.city);
+      //       })
+      //       .catch((err) => {
+      //          console.log(err);
+      //       });
+      // }
 
       const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${
          import.meta.env.VITE_API_KEY
