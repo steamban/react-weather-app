@@ -27,7 +27,9 @@ import { ImSpinner8 } from "react-icons/im";
 
 const App = () => {
    const [data, setData] = useState(null);
-   const [location, setLocation] = useState("kochi");
+   const [api1data, setApi1Data] = useState("");
+   const [api2data, setApi2Data] = useState("");
+   const [location, setLocation] = useState("");
    const [inputValue, setInputValue] = useState("");
    const [animate, setAnimate] = useState(false);
    const [loading, setLoading] = useState(false);
@@ -64,45 +66,34 @@ const App = () => {
       e.preventDefault();
    };
 
-   // (async () => {
-   //    const response = await axios.get('http://ip-api.com/json/')
-   //    console.log(response.data.city);
-   // })
-
    // get user location
-   // useEffect(() => {
-   //    axios
-   //       .get("http://ip-api.com/json/")
-   //       .then((res) => {
-   //          setLocation(res.data.city);
-   //       })
-   //       .catch((err) => {
-   //          console.log(err);
-   //       });
-   // }, []);
+   useEffect(() => {
+      // Fetch data from the first API
+      axios
+         .get("http://ip-api.com/json/")
+         .then((response) => {
+            setApi1Data(response.data);
+            // Use the data from the first API to fetch data from the second API
+            return axios.get(
+               `https://api.openweathermap.org/data/2.5/weather?q=${
+                  response.data.city
+               }&units=metric&appid=${import.meta.env.VITE_API_KEY}`
+            );
+         })
+         .then((response) => setData(response.data))
+         .catch((error) => console.error(error));
+   }, []);
 
    // fetch the data
    useEffect(() => {
       // set loading to true
       setLoading(true);
-      // getUserLocation()
-
-      // if (location === "") {
-      //    axios
-      //       .get("http://ip-api.com/json/")
-      //       .then((res) => {
-      //          setLocation(res.data.city);
-      //       })
-      //       .catch((err) => {
-      //          console.log(err);
-      //       });
-      // }
-
-      const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${
-         import.meta.env.VITE_API_KEY
-      }`;
       axios
-         .get(url)
+         .get(
+            `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${
+               import.meta.env.VITE_API_KEY
+            }`
+         )
          .then((res) => {
             // set the data after 1500 ms
             setTimeout(() => {
